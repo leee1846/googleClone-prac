@@ -8,10 +8,10 @@ function App() {
     <>
       <Router>
         <Switch>
-          <Route path='/Search' component={Search}>
-            xx
-          </Route>
           <Route exact path='/' component={Home}></Route>
+          <Route path='/Search' component={Search}>
+            xxss
+          </Route>
         </Switch>
       </Router>
     </>
