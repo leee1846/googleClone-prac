@@ -11,13 +11,14 @@ import ImageIcon from "@material-ui/icons/Image";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import RoomIcon from "@material-ui/icons/Room";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import useGoogleSearch from "../useGoogleSearch";
 
 function SearchPage() {
   const [{ term }, dispatch] = useStateValue();
 
-  // const { data } = useGoogleSearch(term);
+  const { data } = useGoogleSearch(term);
 
-  const data = Response;
+  // const data = Response;
 
   console.log(data);
   return (
@@ -71,7 +72,7 @@ function SearchPage() {
         </div>
       </div>
 
-      {true && (
+      {term && (
         <div className='searchPage__results'>
           <p className='searchPage__resultCount'>
             About {data?.searchInformation.formattedTotalResults}results (
@@ -80,7 +81,20 @@ function SearchPage() {
 
           {data?.items.map((item) => (
             <div className='searchPage__result'>
-              <a href={item.link}>{item.displayLink}</a>
+              <a className='searchPage__resultLink' href={item.link}>
+                {item.pagemap?.cse_image?.length > 0 &&
+                  item.pagemap?.cse_image[0]?.src && (
+                    <img
+                      className='searchPage__resultImage'
+                      src={
+                        item.pagemap?.cse_image?.length > 0 &&
+                        item.pagemap?.cse_image[0]?.src
+                      }
+                      alt=''
+                    />
+                  )}
+                {item.displayLink}
+              </a>
               <a className='searchPage__resultTitle' href={item.link}>
                 <h2>{item.title}</h2>
               </a>
